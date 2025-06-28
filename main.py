@@ -28,13 +28,13 @@ def chat(m):
     chat_memory[uid].append({"role": "user", "content": user_input})
 
     data = {
-        "model": "openai/gpt-3.5-turbo",
+        "model": "nous-hermes2",  # ✅ WORKING NSFW MODEL
         "messages": chat_memory[uid][-10:]
     }
 
     headers = {
         "Authorization": f"Bearer {API_KEY}",
-        "HTTP-Referer": "https://chat.openrouter.ai",  # required
+        "HTTP-Referer": "https://chat.openrouter.ai",
         "X-Title": "AnayaBot"
     }
 
