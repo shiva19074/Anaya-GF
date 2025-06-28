@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Set your tokens directly here or use Railway ENV Vars
 BOT_TOKEN = os.getenv("BOT_TOKEN") or "7615653650:AAFhwm0ES_rxUPEgwwRkL4pINUf9_0vDrLQ"
 API_KEY = os.getenv("API_KEY") or "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"
 
@@ -30,14 +29,13 @@ def chat(m):
     chat_memory[uid].append({"role": "user", "content": user_input})
 
     data = {
-        "model": "nous-hermes-2",  # ✅ Confirmed working model
+        "model": "openai/gpt-3.5-turbo",  # TEMP to test API key working
         "messages": chat_memory[uid][-10:]
     }
 
     headers = {
         "Authorization": f"Bearer {API_KEY}",
-        "HTTP-Referer": "https://chat.openrouter.ai",
-        "X-Title": "AnayaBot"
+        "Content-Type": "application/json"
     }
 
     try:
