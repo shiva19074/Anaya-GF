@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-API_KEY = "pk-VrdssVWiTTwhuwubSOCldRGLLnECuwHBnZXzAGkDgedkPNTD"
+API_KEY = "pk-HzqqRdpeGoCljVOEEPzEAcqHdHUcAaogRHSZWMyyPhkPlkEi"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 chat_memory = {}
