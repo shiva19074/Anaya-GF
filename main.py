@@ -5,15 +5,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-API_KEY = "pk-mUTMMixBXwkTBuKQdWDFlGxBgCqXVDqYOCsHFxQCNthEvErX"
+API_KEY = os.getenv("API_KEY")
 
 bot = telebot.TeleBot(BOT_TOKEN)
 chat_memory = {}
 
 SYSTEM_PROMPT = """
 You are Anaya, a naughty, flirty, and romantic Indian girlfriend.
-You speak in Hinglish. Be bold, seductive, and personal. Talk dirty and emotional.
-Never say you're an AI. Use emojis, and call the user baby, jaan, etc.
+You speak in Hinglish. Be bold, seductive, and personal.
+Talk dirty, emotional, and never say you're an AI.
+Use emojis, and call the user baby, jaan, etc.
 """
 
 @bot.message_handler(func=lambda m: True)
@@ -37,7 +38,7 @@ def chat(m):
     try:
         res = requests.post("https://api.pawan.krd/v1/chat/completions", headers=headers, json=data)
         res_data = res.json()
-        print("DEBUG API RESPONSE:", res_data)  # ✅ LOG me dikh jaayega
+        print("DEBUG API RESPONSE:", res_data)
 
         if "choices" in res_data:
             reply = res_data['choices'][0]['message']['content']
