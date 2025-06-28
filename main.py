@@ -28,17 +28,19 @@ def chat(m):
     chat_memory[uid].append({"role": "user", "content": user_input})
 
     data = {
-        "model": "gpt-3.5-turbo",
-        "temperature": 0.95,
+        "model": "openai/gpt-3.5-turbo",
         "messages": chat_memory[uid][-10:]
     }
 
-    headers = {"Authorization": f"Bearer {API_KEY}"}
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "HTTP-Referer": "https://chat.openrouter.ai",  # required
+        "X-Title": "AnayaBot"
+    }
 
     try:
-        res = requests.post("https://api.pawan.krd/v1/chat/completions", headers=headers, json=data)
+        res = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data)
         res_data = res.json()
-        print("DEBUG API RESPONSE:", res_data)
 
         if "choices" in res_data:
             reply = res_data['choices'][0]['message']['content']
