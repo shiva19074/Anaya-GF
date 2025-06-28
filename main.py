@@ -36,10 +36,18 @@ def chat(m):
 
     try:
         res = requests.post("https://api.pawan.krd/v1/chat/completions", headers=headers, json=data)
-        reply = res.json()['choices'][0]['message']['content']
-        chat_memory[uid].append({"role": "assistant", "content": reply})
+        res_data = res.json()
+        print("DEBUG API RESPONSE:", res_data)  # ✅ LOG me dikh jaayega
+
+        if "choices" in res_data:
+            reply = res_data['choices'][0]['message']['content']
+            chat_memory[uid].append({"role": "assistant", "content": reply})
+        else:
+            reply = f"⚠️ API Error:\n{res_data.get('error', 'No choices found')}"
+
         bot.reply_to(m, reply)
+
     except Exception as e:
-        bot.reply_to(m, f"Error: {str(e)}")
+        bot.reply_to(m, f"💥 Exception:\n{str(e)}")
 
 bot.polling()
